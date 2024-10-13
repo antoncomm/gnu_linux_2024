@@ -1,0 +1,18 @@
+set pagination off
+file range
+
+b 41
+b 43
+run 1 12 > /dev/null
+
+while (curr < N)
+	if curr % 5 == 0
+		printf "@@@%d\n", M
+		printf "@@@%d\n", N
+		printf "@@@%d\n", S
+		printf "@@@%d\n", curr
+	end
+	c
+end
+c
+q
