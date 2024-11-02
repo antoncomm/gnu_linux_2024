@@ -7,7 +7,6 @@
 #include "config.h"
 #ifdef USE_READLINE
 #include <readline/readline.h>
-#include <readline/history.h>
 #endif
 
 enum types
@@ -16,7 +15,7 @@ enum types
 	STRINGS
 };
 
-int calculate_hash(const char* file, char* digest, char* output, enum rhash_ids alg_type, enum rhash_print_sum_flags pr_type, enum types arg_type)
+int calculate_hash(const char* file, unsigned char* digest, char* output, enum rhash_ids alg_type, enum rhash_print_sum_flags pr_type, enum types arg_type)
 {
 	int res = 0;
 	if (arg_type == FILES)
@@ -47,20 +46,19 @@ int calculate_hash(const char* file, char* digest, char* output, enum rhash_ids 
 int main(int argc, char* argv[])
 {
 	char *line = NULL;
-	size_t len = 0;
-	ssize_t nread;
 	char delim = ' ';
 
-	char digest[64];
+	unsigned char digest[64];
 	char output[130];
 	rhash_library_init();
 #ifndef USE_READLINE
+	size_t len = 0;
+	ssize_t nread;
 	while((nread = getline(&line, &len, stdin)) != -1)
 #else
-	while((line = readline(NULL)) != NULL)
+	while((line = readline(rl_prompt)) != NULL)
 #endif
 	{
-
 		char* name = strtok(line, &delim);
 		if (name == NULL)
 		{
@@ -73,19 +71,19 @@ int main(int argc, char* argv[])
 			fprintf(stderr, "Usage: comand file|string\n");
 			continue;
 		}
-	
+        
 		enum rhash_ids alg_type;
 		enum rhash_print_sum_flags pr_type;
 		enum types arg_type;
-		if (strncasecmp(name, "sha1", len) == 0)
+		if (strcasecmp(name, "sha1") == 0)
 		{
 			alg_type = RHASH_SHA1;
 		}
-		else if (strncasecmp(name, "md5", len) == 0)
+		else if (strcasecmp(name, "md5") == 0)
 		{
 			alg_type = RHASH_MD5;
 		}
-		else if (strncasecmp(name, "tth", len) == 0)
+		else if (strcasecmp(name, "tth") == 0)
 		{
 			alg_type = RHASH_TTH;
 		}
@@ -94,8 +92,9 @@ int main(int argc, char* argv[])
 			fprintf(stderr, "Command not found!\n");
 			continue;
 		}
-
+#ifndef USE_READLINE
 		file[strlen(file) - 1] = '\0';
+#endif
 		if (*file == '"')
 		{
 			arg_type = STRINGS;
@@ -107,15 +106,15 @@ int main(int argc, char* argv[])
 
 		if(isupper(*name))
 		{
-			pr_type = RHPR_HEX | RHPR_UPPERCASE;
+			pr_type = RHPR_HEX;
 		}
 		else
 		{
-			pr_type = RHPR_BASE64 | RHPR_UPPERCASE;
+			pr_type = RHPR_BASE64;
 		}
 
 		calculate_hash(file, digest, output, alg_type, pr_type, arg_type);
+		free(line);
 	}
-	free(line);
 	return 0;
 }
