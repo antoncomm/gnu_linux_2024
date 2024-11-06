@@ -1,0 +1,48 @@
+# Russian translations for  08_I18n package
+# Английские переводы для пакета  08_I18n.
+# Copyright (C) 2024 THE  08_I18n'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the  08_I18n package.
+# Anton Komarov <antoncomm@linuxprac.box.office.basealt.ru>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version:  08_I18n\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-06 20:44+0000\n"
+"PO-Revision-Date: 2024-11-06 20:05+0000\n"
+"Last-Translator: Anton Komarov <antoncomm@linuxprac.box.office.basealt.ru>\n"
+"Language-Team: Russian <gnu@d07.ru>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../src/guesser.c:21
+#, c-format
+msgid "Think of a number from 1 to 100.\n"
+msgstr "Загадайте число от 1 до 100.\n"
+
+#: ../src/guesser.c:25
+#, c-format
+msgid "Is your number bigger than %d?\n"
+msgstr "Ваше число больше %d?\n"
+
+#: ../src/guesser.c:29
+msgid "yes"
+msgstr "да"
+
+#: ../src/guesser.c:33
+msgid "no"
+msgstr "нет"
+
+#: ../src/guesser.c:41 ../src/guesser.c:46
+#, c-format
+msgid "Don't undersand you!\n"
+msgstr "Я вас не понимаю!\n"
+
+#: ../src/guesser.c:50
+#, c-format
+msgid "Your number is %d!\n"
+msgstr "Ваше число %d!\n"
