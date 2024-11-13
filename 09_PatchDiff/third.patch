@@ -1,0 +1,81 @@
+diff -u lab2.c lab2.c
+--- lab2.c	2024-11-13 13:43:12.601279096 +0000
++++ lab2.c	2024-11-13 13:47:38.423395740 +0000
+@@ -53,49 +53,56 @@
+ 	return 1;
+ }
+ 
+-void print_row(direction* lab, direction dir, int row, int N)
++void print_row(direction* lab, direction dir, int row, int N, char* del)
+ {
+-	printf("#");
++	printf("%c", del[1]);
+ 	for(int i = 0; i < N; ++i)
+ 	{
+ 		if (dir & RIGHT || dir & LEFT)
+ 		{
+-			printf(".");
++			printf("%c", del[0]);
+ 		}
+ 		
+ 		if (lab[i * N + row] & dir)
+ 		{
+-			printf(".");		
++			printf("%c", del[0]);		
+ 		}
+ 		else
+ 		{
+-			printf("#");
++			printf("%c", del[1]);
+ 		}
+ 		
+ 		if (dir & DOWN || dir & UP)
+ 		{
+-			printf("#");
++			printf("%c", del[1]);
+ 		}
+ 	}
+ 	printf("\n");
+ 
+ }
+ 
+-void print_lab(direction* lab, int N)
++void print_lab(direction* lab, int N, char* del)
+ {
+-	print_row(lab, UP, 0, N);
++	print_row(lab, UP, 0, N, del);
+ 	for (int j = 0; j < N; ++j)
+ 	{
+-		print_row(lab, RIGHT, j, N);
+-		print_row(lab, DOWN, j, N);
++		print_row(lab, RIGHT, j, N, del);
++		print_row(lab, DOWN, j, N, del);
+ 	}
+ }
+ 
+ int main(int argc, char* argv[])
+ {
+-	srand(time(NULL));
+-
++	char del[2];
+ 	int N = 6;
++	if (argc == 4)
++	{
++		del[0] = argv[2][0];
++		del[1] = argv[2][1];
++		N = atoi(argv[3]);	
++		srand(atoi(argv[1]));
++	}
++
+ 	direction* lab = (direction*)malloc(N * N * sizeof(direction));
+ 	int* count_conn = (int*)malloc(N * N * sizeof(int));
+ 
+@@ -111,7 +118,7 @@
+ 	}
+ 	while (!check_connect(lab, count_conn, N));
+ 
+-	print_lab(lab, N);
++	print_lab(lab, N, del);
+ 
+ 	free(lab);
+ 	free(count_conn);

@@ -1,0 +1,17 @@
+--- lab.c	2024-11-13 12:37:14.007432135 +0000
++++ lab1.c	2024-11-13 12:40:00.447633882 +0000
+@@ -93,9 +93,13 @@
+ 
+ int main(int argc, char* argv[])
+ {
++	int N = 6;
++	if (argc == 2)
++	{
++		N = atoi(argv[1]);	
++	}
+ 	srand(time(NULL));
+ 
+-	int N = 6;
+ 	direction* lab = (direction*)malloc(N * N * sizeof(direction));
+ 	int* count_conn = (int*)malloc(N * N * sizeof(int));
+ 
