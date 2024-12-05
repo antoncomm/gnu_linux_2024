@@ -133,7 +133,11 @@ int Generate_word(char *word)
 	int number_row = rand() % (file_size / (LEN_WORDS + 1)); 
 	fseek(file, (LEN_WORDS + 1) * number_row, SEEK_SET);
 
-	fgets(word, LEN_WORDS + 1, file);
+	if (fgets(word, LEN_WORDS + 1, file) == NULL)
+	{
+		fprintf(stderr, "Can't get a line!");
+		return 1;
+	}
 
 	fseek(file, 0L, SEEK_SET);
 	fclose(file);
