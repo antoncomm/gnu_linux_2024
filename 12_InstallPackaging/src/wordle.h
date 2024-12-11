@@ -3,6 +3,11 @@
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
+#include <libintl.h>
+#include <locale.h>
+#include "config.h"
+
+#define _(STRING) gettext(STRING)
 
 #define GUESS_NUMBER 6
 #define LEN_WORDS 5
@@ -44,28 +49,28 @@ void Print_phrase(int i, int is_guessed, char *answer)
 {
 	if (!is_guessed)
 	{
-		mvwprintw(stdscr, GUESS_NUMBER, 0, "Not cool. Answer was: %s\n", answer);
+		mvwprintw(stdscr, GUESS_NUMBER, 0, _("Not cool. Answer was: %s\n"), answer);
 		return;
 	}
 	switch (i)
 	{
 		case 1:
-			mvwprintw(stdscr, i, 0, "Coooooooooooool!\n");
+			mvwprintw(stdscr, i, 0, _("Coooooooooooool!\n"));
 			break;
 		case 2:
-			mvwprintw(stdscr, i, 0, "Coooooooool!\n");
+			mvwprintw(stdscr, i, 0, _("Coooooooool!\n"));
 			break;
 		case 3:
-			mvwprintw(stdscr, i, 0, "Coooool!\n");
+			mvwprintw(stdscr, i, 0, _("Coooool!\n"));
 			break;
 		case 4:
-			mvwprintw(stdscr, i, 0, "Cool!\n");
+			mvwprintw(stdscr, i, 0, _("Cool!\n"));
 			break;
 		case 5:
-			mvwprintw(stdscr, i, 0, "Col!\n");
+			mvwprintw(stdscr, i, 0, _("Col!\n"));
 			break;
 		case 6:
-			mvwprintw(stdscr, i, 0, "Cl!\n");
+			mvwprintw(stdscr, i, 0, _("Cl!\n"));
 			break;
 
 	}
@@ -120,10 +125,14 @@ int Generate_word(char *word)
 {
 	srand(time(NULL));
 
-	FILE* file = fopen("en_dict.txt", "r");
+	char name[100] = "\0";
+	strcat(name, DATADIR);
+	strcat(name, "/en_dict.txt");
+	FILE* file = fopen(name, "r");
 	if (file == NULL)
 	{
-		fprintf(stderr, "Can't open dict!\n");
+		fprintf(stderr, "%s\n", name);
+		fprintf(stderr, _("Can't open dict!\n"));
 		return 1;
 	}
     fseek(file, 0L, SEEK_END);
@@ -135,7 +144,7 @@ int Generate_word(char *word)
 
 	if (fgets(word, LEN_WORDS + 1, file) == NULL)
 	{
-		fprintf(stderr, "Can't get a line!\n");
+		fprintf(stderr, _("Can't get a line!\n"));
 		return 1;
 	}
 

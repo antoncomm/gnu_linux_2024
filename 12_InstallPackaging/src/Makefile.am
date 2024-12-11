@@ -1,6 +1,15 @@
+AM_CFLAGS=-D'LOCALEDIR="$(localedir)"' -D'DATADIR="$(datadir)"'
+
 bin_PROGRAMS = wordle
+wordle_SOURCES =wordle.h wordle.c
 
-all:	make_en_dictionary wordle
+BUILT_SOURCES = wordle.h
 
-make_en_dictionary:	generate_dictionary.py
-	python3 $^
+wordle.h:	en_dict.txt	
+
+en_dict.txt:	generate_dictionary.py
+	python3 $^	
+
+install-data-local:	en_dict.txt
+	mkdir -p ${datadir}
+	mv $^ ${datadir}
