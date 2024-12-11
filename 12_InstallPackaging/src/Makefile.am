@@ -1,5 +1,6 @@
 bin_PROGRAMS = wordle
 
-wordle.h:	generate_dictionary.py
-	python3 $^
+all:	make_en_dictionary wordle
 
+make_en_dictionary:	generate_dictionary.py
+	python3 $^
