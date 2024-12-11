@@ -32,7 +32,7 @@ def make_dict(name, words):
             f.write("\n")
 
 en_words = generate_en_words()
-ru_words = generate_ru_words()
+#ru_words = generate_ru_words()
 
 make_dict('en_dict.txt', en_words)
-make_dict('ru_dict.txt', ru_words)
+#make_dict('ru_dict.txt', ru_words)

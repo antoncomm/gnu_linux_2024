@@ -1,5 +1,16 @@
-#include"wordle.h"
-/*
+#include <ncurses.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include <stdlib.h>
+
+#define GUESS_NUMBER 6
+#define LEN_WORDS 5
+
+#define BLACK_LETTER 1
+#define GREEN_LETTER 2
+#define YELLOW_LETTER 3
+
 void Print_letters(const char *guess, int *guess_num, int row)
 {
 	for(int i = 0; i < LEN_WORDS; ++i)
@@ -162,23 +173,6 @@ int Play()
 	Print_phrase(times + 1, is_guessed, answer);
     getch();
 	endwin();
-
-	return 0;
-}
-*/
-int main(int argc, char* argv[])
-{
-	if (argc == 2 && !(strcmp(argv[1], "-h") && strcmp(argv[1], "-help")))
-	{
-		printf("Usage: %s [OPTIONS]\n", argv[0]);
-		printf("%s -h, --help - Help information\n", argv[0]);
-		printf("LC_ALL=ru_RU.UTF-8 %s - play in russian\n", argv[0]);
-	}
-	
-	if (Play())
-	{
-		return 1;
-	}
 
 	return 0;
 }
