@@ -1,6 +1,21 @@
 #include"wordle.h"
 #include "config.h"
 
+/** @mainpage Guess 5-letters word using 6 attempts
+ * @copydetails Wordle
+ */
+
+/** @page Wordle
+ * Guess 5-letters word using 6 attempts
+ * @section SYNOPSIS
+ * `wordle` 
+ * @section DESCRIPTION
+ * Guess the Wordle in 6 tries. Each guess must be a valid 5-letter word.
+ * The color of the tiles will change to show how close your guess was to the word.
+ * Green means that letter in the right spot.
+ * Yellow means that letter in the word but in the wrong spot.
+ * Black letters are not in the word.
+ */
 int main(int argc, char* argv[])
 {
 	setlocale (LC_ALL, "");

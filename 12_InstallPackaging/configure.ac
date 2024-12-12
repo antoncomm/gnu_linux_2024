@@ -4,6 +4,7 @@
 AC_PREREQ([2.71])
 AC_INIT([Guess the five-letter word], [0.00], [uga@buga], [Wordle])
 AM_INIT_AUTOMAKE([foreign])
+DX_INIT_DOXYGEN([Wordle])
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_REQUIRE_VERSION(0.21)
 AC_CONFIG_SRCDIR([src/wordle.c])
@@ -28,5 +29,5 @@ AC_CHECK_HEADERS([libintl.h])
 # Checks for library functions.
 AC_CHECK_FUNCS([setlocale])
 
-AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile po/Makefile.in])
+AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile po/Makefile.in Doxyfile])
 AC_OUTPUT

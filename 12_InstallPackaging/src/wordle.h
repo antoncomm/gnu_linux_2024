@@ -9,13 +9,24 @@
 
 #define _(STRING) gettext(STRING)
 
-#define GUESS_NUMBER 6
-#define LEN_WORDS 5
+#define GUESS_NUMBER 6 /**< Number of guess in the game*/
+#define LEN_WORDS 5 /**< Length of words*/
 
-#define BLACK_LETTER 1
-#define GREEN_LETTER 2
-#define YELLOW_LETTER 3
+/* Types of letters */
+#define BLACK_LETTER 1 /*< Using black letters on white background*/
+#define GREEN_LETTER 2 /*< Using green letters on white background*/
+#define YELLOW_LETTER 3 /*< Using yellow letters on white background*/
 
+/** @file wordle.h
+ *	Implementation
+ */
+
+/** Print new letters after users guess.
+ *
+ * @param guess users word
+ * @param guess_num array with information about guessed letters
+ * @param row attempt number
+ */
 void Print_letters(const char *guess, int *guess_num, int row)
 {
 	for(int i = 0; i < LEN_WORDS; ++i)
@@ -45,6 +56,12 @@ void Print_letters(const char *guess, int *guess_num, int row)
 	mvwprintw(stdscr, row, LEN_WORDS, "\n");
 }
 
+/** Print phrase in the end of the game.
+ *
+ * @param i how many attempts user use
+ * @param is_guessed was the word guessed
+ * @param answer true answer
+ */
 void Print_phrase(int i, int is_guessed, char *answer)
 {
 	if (!is_guessed)
@@ -76,6 +93,13 @@ void Print_phrase(int i, int is_guessed, char *answer)
 	}
 }
 
+/** Fill array with information about guessed letters.
+ *
+ * @param answer true word
+ * @param guess users word
+ * @param answer_num array with information about letters in answer
+ * @param guess_num array with information about guessed letters
+ */
 void Fill_difference(const char *answer, const char *guess, int *answer_num, int *guess_num)
 {
 	for(int i = 0; i < LEN_WORDS; ++i)
@@ -103,6 +127,12 @@ void Fill_difference(const char *answer, const char *guess, int *answer_num, int
 	
 }
 
+/** Check new attempt.
+ *
+ * @param answer true word
+ * @param guess users word
+ * @param row attempt number
+ */
 int Check(const char *answer, const char *guess, int row)
 {
 	int answer_num[LEN_WORDS], guess_num[LEN_WORDS];
@@ -121,6 +151,10 @@ int Check(const char *answer, const char *guess, int row)
 	return 0;
 }
 
+/** Generate word for game.
+ *
+ * @param word generate answer from dictionary
+ */
 int Generate_word(char *word)
 {
 	srand(time(NULL));
@@ -153,6 +187,10 @@ int Generate_word(char *word)
 	return 0;
 }
 
+/* Main function with game: it call word generation and check users words.
+ * It also renders the answers.
+ *
+ */
 int Play()
 {
 	char answer[LEN_WORDS + 1], guess[LEN_WORDS + 1];
